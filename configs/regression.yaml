@@ -1,0 +1,77 @@
+scenarios:
+  - name: healthy
+    expected_warning: null
+    faults: []
+
+  - name: soc_overrange
+    expected_warning: BMS_SOC_IMPLAUSIBLE
+    faults:
+      - kind: override_signal
+        start_s: 1.0
+        end_s: 1.8
+        signal: SOC
+        value: 110.0
+
+  - name: overtemperature
+    expected_warning: BMS_OVER_TEMPERATURE
+    faults:
+      - kind: override_signal
+        start_s: 1.0
+        end_s: 1.8
+        signal: MaxCellTemp
+        value: 75.0
+
+  - name: pack_voltage_low
+    expected_warning: BMS_PACK_VOLTAGE_IMPLAUSIBLE
+    faults:
+      - kind: override_signal
+        start_s: 1.0
+        end_s: 1.8
+        signal: PackVoltage
+        value: 220.0
+
+  - name: message_dropout
+    expected_warning: BMS_COMMUNICATION_TIMEOUT
+    faults:
+      - kind: drop
+        start_s: 1.0
+        end_s: 1.8
+
+  - name: delayed_messages
+    expected_warning: BMS_COMMUNICATION_TIMEOUT
+    faults:
+      - kind: delay
+        start_s: 1.0
+        end_s: 1.6
+        delay_ms: 400
+
+  - name: wrong_counter
+    expected_warning: BMS_COUNTER_SEQUENCE
+    faults:
+      - kind: wrong_counter
+        start_s: 1.0
+        end_s: 1.5
+
+  - name: checksum_mismatch
+    expected_warning: BMS_CHECKSUM_MISMATCH
+    faults:
+      - kind: checksum_mismatch
+        start_s: 1.0
+        end_s: 1.5
+
+  - name: stuck_soc_injection
+    expected_warning: null
+    faults:
+      - kind: stuck_signal
+        start_s: 1.0
+        end_s: 1.8
+        signal: SOC
+
+  - name: noisy_temperature
+    expected_warning: null
+    faults:
+      - kind: noisy_signal
+        start_s: 1.0
+        end_s: 1.8
+        signal: MaxCellTemp
+        amplitude: 2.0

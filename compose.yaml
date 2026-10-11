@@ -1,0 +1,6 @@
+services:
+  can-platform:
+    build: .
+    command: ["python", "-m", "automotive_can", "regression", "--output", "reports/docker-compose"]
+    volumes:
+      - ./reports:/app/reports

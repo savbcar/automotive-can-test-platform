@@ -1,0 +1,6 @@
+# Educational UDS-like examples (payload only)
+10 03       # DiagnosticSessionControl -> extended session
+22 F1 90    # ReadDataByIdentifier -> example SOC DID
+19 02       # ReadDTCInformation -> active DTC list
+3E 00       # TesterPresent
+14 FF FF FF # ClearDiagnosticInformation -> simplified clear-all

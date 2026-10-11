@@ -1,0 +1,12 @@
+duration_s: 4.0
+step_ms: 10
+bms_cycle_ms: 100
+thermal_cycle_ms: 200
+limits:
+  soc_min: 0.0
+  soc_max: 100.0
+  voltage_min: 250.0
+  voltage_max: 450.0
+  max_temp_warning_c: 60.0
+  bms_timeout_ms: 300
+  recovery_frames: 3

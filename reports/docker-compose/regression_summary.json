@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "expected_warning": null,
+      "name": "healthy",
+      "observed_warnings": [],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    },
+    {
+      "expected_warning": "BMS_SOC_IMPLAUSIBLE",
+      "name": "soc_overrange",
+      "observed_warnings": [
+        "BMS_SOC_IMPLAUSIBLE"
+      ],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    },
+    {
+      "expected_warning": "BMS_OVER_TEMPERATURE",
+      "name": "overtemperature",
+      "observed_warnings": [
+        "BMS_OVER_TEMPERATURE"
+      ],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    },
+    {
+      "expected_warning": "BMS_PACK_VOLTAGE_IMPLAUSIBLE",
+      "name": "pack_voltage_low",
+      "observed_warnings": [
+        "BMS_PACK_VOLTAGE_IMPLAUSIBLE"
+      ],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    },
+    {
+      "expected_warning": "BMS_COMMUNICATION_TIMEOUT",
+      "name": "message_dropout",
+      "observed_warnings": [
+        "BMS_COMMUNICATION_TIMEOUT",
+        "BMS_COUNTER_SEQUENCE"
+      ],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    },
+    {
+      "expected_warning": "BMS_COMMUNICATION_TIMEOUT",
+      "name": "delayed_messages",
+      "observed_warnings": [
+        "BMS_COMMUNICATION_TIMEOUT",
+        "BMS_COUNTER_SEQUENCE"
+      ],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    },
+    {
+      "expected_warning": "BMS_COUNTER_SEQUENCE",
+      "name": "wrong_counter",
+      "observed_warnings": [
+        "BMS_CHECKSUM_MISMATCH",
+        "BMS_COUNTER_SEQUENCE"
+      ],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    },
+    {
+      "expected_warning": "BMS_CHECKSUM_MISMATCH",
+      "name": "checksum_mismatch",
+      "observed_warnings": [
+        "BMS_CHECKSUM_MISMATCH"
+      ],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    },
+    {
+      "expected_warning": null,
+      "name": "stuck_soc_injection",
+      "observed_warnings": [],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    },
+    {
+      "expected_warning": null,
+      "name": "noisy_temperature",
+      "observed_warnings": [],
+      "passed": true,
+      "recovered": true,
+      "samples": 401
+    }
+  ],
+  "scenario_count": 10
+}

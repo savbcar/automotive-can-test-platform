@@ -1,0 +1,15 @@
+{
+  "message": "BMS_Status",
+  "can_id": "0x180",
+  "cycle_ms": 100,
+  "signals": {
+    "SOC": 82.5,
+    "PackVoltage": 400.2,
+    "PackCurrent": -42.3,
+    "MaxCellTemp": 31.0,
+    "BatteryState": 1,
+    "FaultFlags": 0,
+    "Counter": 0
+  },
+  "verified_reference_payload_hex": "a5 a2 0f 59 fe 47 01 e0"
+}

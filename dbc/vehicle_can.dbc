@@ -1,0 +1,63 @@
+VERSION "1.0"
+
+NS_ :
+    NS_DESC_
+    CM_
+    BA_DEF_
+    BA_
+    VAL_
+
+BS_:
+
+BU_: BMS_ECU VEHICLE_ECU THERMAL_ECU TESTER
+
+BO_ 384 BMS_Status: 8 BMS_ECU
+ SG_ SOC : 0|8@1+ (0.5,0) [0|127.5] "%" VEHICLE_ECU
+ SG_ PackVoltage : 8|16@1+ (0.1,0) [0|6553.5] "V" VEHICLE_ECU
+ SG_ PackCurrent : 24|16@1- (0.1,0) [-3276.8|3276.7] "A" VEHICLE_ECU
+ SG_ MaxCellTemp : 40|8@1+ (1,-40) [-40|215] "degC" VEHICLE_ECU
+ SG_ BatteryState : 48|3@1+ (1,0) [0|7] "" VEHICLE_ECU
+ SG_ FaultFlags : 51|5@1+ (1,0) [0|31] "" VEHICLE_ECU
+ SG_ Counter : 56|4@1+ (1,0) [0|15] "" VEHICLE_ECU
+ SG_ AppChecksum : 60|4@1+ (1,0) [0|15] "" VEHICLE_ECU
+
+BO_ 640 Thermal_Status: 8 THERMAL_ECU
+ SG_ CoolantTemp : 0|8@1+ (1,-40) [-40|215] "degC" VEHICLE_ECU
+ SG_ PumpDuty : 8|8@1+ (1,0) [0|100] "%" VEHICLE_ECU
+ SG_ FanDuty : 16|8@1+ (1,0) [0|100] "%" VEHICLE_ECU
+ SG_ ThermalState : 24|4@1+ (1,0) [0|15] "" VEHICLE_ECU
+ SG_ Counter : 56|4@1+ (1,0) [0|15] "" VEHICLE_ECU
+ SG_ AppChecksum : 60|4@1+ (1,0) [0|15] "" VEHICLE_ECU
+
+BO_ 1792 Diag_Request: 8 TESTER
+ SG_ Length : 0|8@1+ (1,0) [0|7] "byte" VEHICLE_ECU
+ SG_ Payload0 : 8|8@1+ (1,0) [0|255] "" VEHICLE_ECU
+ SG_ Payload1 : 16|8@1+ (1,0) [0|255] "" VEHICLE_ECU
+ SG_ Payload2 : 24|8@1+ (1,0) [0|255] "" VEHICLE_ECU
+ SG_ Payload3 : 32|8@1+ (1,0) [0|255] "" VEHICLE_ECU
+ SG_ Payload4 : 40|8@1+ (1,0) [0|255] "" VEHICLE_ECU
+ SG_ Payload5 : 48|8@1+ (1,0) [0|255] "" VEHICLE_ECU
+ SG_ Payload6 : 56|8@1+ (1,0) [0|255] "" VEHICLE_ECU
+
+BO_ 1800 Diag_Response: 8 VEHICLE_ECU
+ SG_ Length : 0|8@1+ (1,0) [0|7] "byte" TESTER
+ SG_ Payload0 : 8|8@1+ (1,0) [0|255] "" TESTER
+ SG_ Payload1 : 16|8@1+ (1,0) [0|255] "" TESTER
+ SG_ Payload2 : 24|8@1+ (1,0) [0|255] "" TESTER
+ SG_ Payload3 : 32|8@1+ (1,0) [0|255] "" TESTER
+ SG_ Payload4 : 40|8@1+ (1,0) [0|255] "" TESTER
+ SG_ Payload5 : 48|8@1+ (1,0) [0|255] "" TESTER
+ SG_ Payload6 : 56|8@1+ (1,0) [0|255] "" TESTER
+
+CM_ BO_ 384 "Cyclic BMS status. Application checksum/counter are educational, not an OEM E2E profile.";
+CM_ BO_ 640 "Cyclic thermal-controller status.";
+CM_ BO_ 1792 "Simplified single-frame diagnostic request; not ISO-TP compliant.";
+CM_ BO_ 1800 "Simplified single-frame diagnostic response; not ISO-TP compliant.";
+CM_ SG_ 384 SOC "DBC representable range intentionally extends above 100% so test tooling can inject an implausible SOC.";
+
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 10000;
+BA_ "GenMsgCycleTime" BO_ 384 100;
+BA_ "GenMsgCycleTime" BO_ 640 200;
+
+VAL_ 384 BatteryState 0 "OFF" 1 "READY" 2 "CHARGING" 3 "FAULT";
+VAL_ 640 ThermalState 0 "OFF" 1 "ACTIVE" 2 "DERATE" 3 "FAULT";

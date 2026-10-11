@@ -1,0 +1,16 @@
+TX 0x180 a5 a2 0f 59 fe 47 01 e0
+{
+  "AppChecksum": 14,
+  "BatteryState": 1,
+  "ChecksumValid": 1,
+  "Counter": 0,
+  "FaultFlags": 0,
+  "MaxCellTemp": 31.0,
+  "PackCurrent": -42.300000000000004,
+  "PackVoltage": 400.20000000000005,
+  "SOC": 82.5
+}
+{
+  "healthy": true,
+  "warnings": []
+}

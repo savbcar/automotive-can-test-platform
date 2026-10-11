@@ -1,0 +1,8 @@
+Internal ctest changing into directory: /mnt/data/automotive-can-test-platform/cpp/build
+Test project /mnt/data/automotive-can-test-platform/cpp/build
+    Start 1: fault_monitor_cpp
+1/1 Test #1: fault_monitor_cpp ................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.00 sec
