@@ -37,14 +37,23 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install dependencies
+          cache: pip
+      - name: Install dependencies and CAN kernel modules
         run: |
           sudo apt-get update
-          sudo apt-get install -y iproute2 can-utils
+          sudo apt-get install -y \
+            iproute2 \
+            can-utils \
+            "linux-modules-extra-$(uname -r)"
           python -m pip install -e '.[dev]'
+
       - name: Create vcan0
         run: |
-          sudo modprobe vcan || true
+          echo "Runner kernel: $(uname -r)"
+          modinfo vcan
+          sudo modprobe can
+          sudo modprobe can_raw
+          sudo modprobe vcan
           sudo ip link add dev vcan0 type vcan
           sudo ip link set vcan0 up
           ip -details link show vcan0
