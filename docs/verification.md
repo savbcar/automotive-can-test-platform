@@ -23,3 +23,16 @@ Verification was performed in the packaging environment before cleanup.
 - Ruff/mypy commands: tools were not preinstalled and could not be downloaded. They are configured as development dependencies/CI checks where applicable.
 
 GitHub Actions is configured to install the dependencies and exercise the real `vcan0` path on Ubuntu. This record deliberately distinguishes executed verification from configured-but-unexecuted verification.
+
+## Subsequent GitHub and local verification
+
+After packaging, the project received additional verification:
+
+- Local Python suite with the C++ executable built: 40 passed, 1 optional SocketCAN test skipped.
+- Local Python-to-C++ integration test: passed.
+- Local Ruff lint: passed.
+- Local Docker image build: passed.
+- Local Docker runtime demo: passed.
+- Local Docker Compose regression: 10/10 scenarios passed.
+- GitHub Actions SocketCAN job successfully created `vcan0` and passed the `python-can` round-trip integration test.
+- Local WSL SocketCAN remains unavailable because the installed WSL kernel does not provide the `vcan` device type; this is an environment limitation rather than a project failure.

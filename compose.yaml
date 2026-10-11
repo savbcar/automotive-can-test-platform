@@ -1,6 +1,15 @@
 services:
   can-platform:
     build: .
-    command: ["python", "-m", "automotive_can", "regression", "--output", "reports/docker-compose"]
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    command:
+      [
+        "python",
+        "-m",
+        "automotive_can",
+        "regression",
+        "--output",
+        "reports/docker-compose"
+      ]
     volumes:
       - ./reports:/app/reports

@@ -1,5 +1,7 @@
 # Automotive CAN & ECU Test Automation Platform
 
+[![CI](https://github.com/savbcar/automotive-can-test-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/savbcar/automotive-can-test-platform/actions/workflows/ci.yml)
+
 A software-only automotive communication and regression-test platform built to demonstrate foundational CAN/DBC/ECU/diagnostics knowledge without pretending to be a production ECU or HIL system.
 
 The repository models three virtual ECUs (Battery Management, Vehicle Control, Thermal Control), DBC-defined CAN traffic, application-level counter/checksum supervision, deterministic fault injection, a simplified UDS-like diagnostic server, automated Python/C++ tests, regression evidence, Linux SocketCAN integration, CI, and Docker reproducibility.
@@ -352,6 +354,16 @@ A practical extension path is:
 6. Use CANoe/CANalyzer or another professional rest-bus/test environment where required.
 7. Introduce real-time HIL hardware/plant models for target I/O, timing and fault insertion.
 
+## Regression evidence
+
+The repository includes deterministic regression evidence generated from the implemented fault scenarios.
+
+![SOC plausibility fault injection](reports/example/soc_trace.png)
+
+![Temperature fault injection](reports/example/temperature_trace.png)
+
+![Fault detection summary](reports/example/fault_detection_summary.png)
+
 ## Verified example results
 
 The repository contains a generated example report from the included scenarios. In the build environment used to package this repository:
@@ -364,6 +376,36 @@ The repository contains a generated example report from the included scenarios. 
 - Regression scenarios: **10/10 passed**, reports and PNG plots generated.
 
 CI is configured to execute the external dependency and `vcan0` paths on GitHub-hosted Ubuntu where dependencies/kernel support are available.
+
+### Regression evidence
+
+#### Fault-detection summary
+
+![Fault detection summary](reports/example/fault_detection_summary.png)
+
+#### SOC plausibility fault injection
+
+![SOC plausibility trace](reports/example/soc_trace.png)
+
+#### Thermal fault injection
+
+![Temperature fault trace](reports/example/temperature_trace.png)
+
+### Current GitHub CI verification
+
+The repository is additionally validated on GitHub-hosted Ubuntu runners:
+
+- Ruff static lint checks: passed.
+- Python unit/integration/regression suite: passed.
+- `cantools` DBC/reference-codec parity path: executed successfully.
+- Linux SocketCAN `vcan0` integration using `python-can`: passed.
+- C++20 CMake build and CTest: passed.
+- Python-to-compiled-C++ integration: validated by the dedicated C++ CI job.
+- Deterministic regression scenarios: 10/10 passed.
+- Regression evidence: generated and uploaded as a GitHub Actions artifact.
+- Docker image build and runtime demo: validated by CI.
+
+Local WSL verification is intentionally different: the current WSL kernel does not expose the `vcan` device type, so SocketCAN is verified in GitHub CI rather than claimed as locally verified.
 
 ## CV bullet — truthful after this implementation
 

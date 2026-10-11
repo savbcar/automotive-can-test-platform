@@ -10,20 +10,32 @@ permissions:
 jobs:
   python:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
+
       - name: Install
         run: python -m pip install -e '.[dev]'
+
       - name: Lint
         run: ruff check src tests
+
       - name: Unit, integration and regression tests
-        run: pytest -q --cov=automotive_can --cov-report=term-missing --cov-report=xml
+        run: >
+          pytest -q
+          --cov=automotive_can
+          --cov-report=term-missing
+          --cov-report=xml
+          --cov-fail-under=60
+
       - name: Generate regression evidence
         run: python -m automotive_can regression --output reports/ci
+
       - name: Upload regression artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -32,12 +44,15 @@ jobs:
 
   socketcan:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
+
       - name: Install dependencies and CAN kernel modules
         run: |
           sudo apt-get update
@@ -57,6 +72,7 @@ jobs:
           sudo ip link add dev vcan0 type vcan
           sudo ip link set vcan0 up
           ip -details link show vcan0
+
       - name: python-can SocketCAN integration
         env:
           CAN_SOCKETCAN_TEST: "1"
@@ -64,11 +80,38 @@ jobs:
 
   cpp:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - name: Configure
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: python -m pip install -e '.[dev]'
+
+      - name: Configure C++
         run: cmake -S cpp -B cpp/build -DCMAKE_BUILD_TYPE=Release
-      - name: Build
+
+      - name: Build C++
         run: cmake --build cpp/build --parallel
-      - name: Test
+
+      - name: C++ unit tests
         run: ctest --test-dir cpp/build --output-on-failure
+
+      - name: Python to C++ integration
+        run: pytest -q tests/integration/test_cpp_monitor.py
+
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t automotive-can-test-platform:ci .
+
+      - name: Run Docker demo
+        run: docker run --rm automotive-can-test-platform:ci
